@@ -1,53 +1,110 @@
-# 🤖 CV Chatbot - Production Ready Chatbot
+# 🤖 CV Chatbot - AI-Powered Interview Chatbot
 
-A fully functional AI-powered chatbot that answers questions about a professional CV using semantic search and OpenAI's GPT-3.5-turbo.
+A sophisticated AI-powered chatbot that answers questions about a professional CV using semantic search, vector embeddings, and advanced language models. Built with Streamlit, Pinecone, and Groq Llama 3.3.
 
 ## ✨ Features
 
 ### Core Functionality
-- ✅ **Real OpenAI Integration** - Uses GPT-3.5-turbo for intelligent responses
-- ✅ **Vector Database** - Pinecone-powered semantic search
-- ✅ **Conversation Memory** - Remembers all messages in the session
-- ✅ **Beautiful UI** - Modern Streamlit interface with custom styling
-- ✅ **Persistent Chat History** - Messages persist during session
-- ✅ **Error Handling** - Graceful error messages and fallbacks
+- ✅ **Semantic Search** - Pinecone vector database for intelligent document retrieval
+- ✅ **AI Responses** - Groq Llama 3.3 LLM for natural language generation
+- ✅ **Conversation Memory** - Maintains chat history throughout the session
+- ✅ **Beautiful Responsive UI** - Modern Streamlit interface with animations
+- ✅ **Real-time Processing** - Instant responses with visual feedback
+- ✅ **Error Handling** - Graceful error management and user guidance
 
 ### Technical Stack
-- **Frontend**: Streamlit (web UI)
-- **Embeddings**: Sentence-transformers (all-MiniLM-L6-v2)
-- **Vector DB**: Pinecone
-- **LLM**: OpenAI GPT-3.5-turbo
-- **Language**: Python 3.8+
+- **Frontend**: Streamlit (responsive web UI)
+- **Embeddings**: Sentence-transformers (all-MiniLM-L6-v2, 384 dimensions)
+- **Vector Database**: Pinecone (512-dimensional index)
+- **LLM**: Groq Llama 3.3
+- **Language**: Python 3.10+
+- **Deployment Ready**: Can be deployed to Streamlit Cloud
 
 ## 📋 Project Structure
 
 ```
 my_chatbot/
-├── streamlit_app.py          # Main Streamlit application
-├── llm.py                    # OpenAI integration & response generation
-├── embedder.py              # Text embedding using sentence-transformers
+├── streamlit_app.py          # Main Streamlit application (UI)
+├── llm.py                    # Groq LLM integration
+├── embedder.py              # Text embedding & vector processing
 ├── vectorstore.py           # Pinecone database operations
-├── pdfreader.py             # PDF reading functionality
-├── chunker.py               # Text chunking logic
-├── dataprocessor.py         # Data pipeline coordinator
-├── QueryProcessor.py        # Query processing pipeline
-├── .env                     # Environment variables (secrets)
+├── pdfreader.py             # PDF reading & extraction
+├── chunker.py               # Text chunking & preprocessing
+├── dataprocessor.py         # Data pipeline orchestration
+├── QueryProcessor.py        # Query processing script
 ├── requirements.txt         # Python dependencies
-└── resources/               # PDF documents folder
-    └── Vijayasooriyan-Kamarajah's CV.pdf
+├── .env.example              # Environment variables template
+├── .gitignore                # Git ignore configuration
+├── README.md                # Documentation
+└── resources/               # Documents folder
+    └── CV.pdf               # Resume/CV document
 ```
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.10+
 - Pinecone account (free tier available)
-- OpenAI account with API access
+- Groq API key (free at https://console.groq.com)
 
-### Step 1: Clone/Setup Project
+### Step 1: Clone the Repository
 ```bash
-cd my_chatbot
+git clone https://github.com/vijayasooriyan/My-Chat-Bot.git
+cd My-Chat-Bot
 ```
+
+### Step 2: Create Virtual Environment
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# Linux/macOS
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Step 3: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Configure Environment Variables
+```bash
+# Create a .env file with your API keys
+echo "PINECONE_API_KEY=your_pinecone_api_key" > .env
+echo "PINECONE_INDEX_NAME=your_index_name" >> .env
+echo "GROQ_API_KEY=your_groq_api_key" >> .env
+```
+
+### Step 5: Add Your Document
+Place your PDF file in the `resources/` folder and update the paths in `pdfreader.py` if needed.
+
+### Step 6: Process the Document
+```bash
+python dataprocessor.py  # This will parse and store chunks in Pinecone
+```
+
+### Step 7: Run the Chatbot
+```bash
+streamlit run streamlit_app.py
+```
+
+The app will open at `http://localhost:8501`
+
+## 🔧 Configuration
+
+### Environment Variables (.env)
+```
+PINECONE_API_KEY=your_api_key_here
+PINECONE_INDEX_NAME=your_index_name
+GROQ_API_KEY=your_groq_api_key
+```
+
+### Embedding Configuration
+- **Model**: sentence-transformers/all-MiniLM-L6-v2
+- **Dimension**: 384 (padded to 512 for Pinecone)
+- **Chunk Size**: Configurable in chunker.py
 
 ### Step 2: Install Dependencies
 ```bash
